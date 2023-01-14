@@ -27,7 +27,12 @@ A brief description of what this project does and who it's for
 
 Run this command:
 
-`docker-compose up -d`
+`$ JENKINS_ADMIN_ID=[ENTER ADMIN USERNAME] JENKINS_ADMIN_PASSWORD=[ENTER ADMIN PASS] SERVER_IP=[ENTER YOUR SERVER IP] AGENT_PRIVATE_KEY=[ENTER AGENT PRIVATE KEY] JENKINS_AGENT_SSH_PUBKEY=[ENTER YOUR AGENT PUBLIC KEY] docker-compose -f ~/Aurora-Labs-Ex/docker-compose.yaml up -d`
 
 * To end the deployment run: `docker-compose down`
+
+
+## Appendix
+
+* There is a Github token for the integration with jenkins that will expire on Mon, Feb 13 2023
 

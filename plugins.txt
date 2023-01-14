@@ -1,5 +1,6 @@
 ant:latest
 antisamy-markup-formatter:latest
+authorize-project:latest
 build-timeout:latest
 cloudbees-folder:latest
 configuration-as-code:latest
@@ -18,3 +19,4 @@ ssh-slaves:latest
 timestamper:latest
 workflow-aggregator:latest
 ws-cleanup:latest
+ghprb:latest

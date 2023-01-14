@@ -1,0 +1,35 @@
+jenkins:
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+        - Overall/Administer:admin
+        - Overall/Read:authenticated
+  security:
+    queueItemAuthenticator:
+      authenticators:
+        - global:
+            strategy: triggeringUsersAuthorizationStrategy
+    securityRealm:
+      local:
+        allowsSignup: false
+        users:
+          - id: ${JENKINS_ADMIN_ID}
+            password: ${JENKINS_ADMIN_PASSWORD}
+    remotingSecurity:
+      enabled: true
+  credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - basicSSHUserPrivateKey:
+              scope: SYSTEM
+              id: agent-private-key
+              username: root
+              passphrase:  ""
+              description: "ssh private key used to connect ssh slaves"
+              privateKeySource:
+                directEntry: ${AGENT_PRIVATE_KEY}
+  
+unclassified:
+  location:
+    url: http://${SERVER_IP}:8080/
