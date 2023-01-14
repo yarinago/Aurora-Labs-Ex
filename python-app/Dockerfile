@@ -1,23 +1,20 @@
 FROM python:3.7-slim-buster as requirements
+#ENV PYTHON_APP_PATH="/Aurora-Labs-Ex/python-app"
 
-ENV PYTHON_APP_PATH="/Aurora-Labs-Ex/python-app"
 # TODO: FIND WHAT IS THE PATH FOR WORKDIR
-WORKDIR ${PYTHON_APP_PATH}
-RUN python -m venv ${PYTHON_APP_PATH}/venv
-ENV PATH="${PYTHON_APP_PATH}/venv/bin:$PATH"
+WORKDIR /Aurora-Labs-Ex/python-app
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
 
 
 FROM python:3.7-slim-buster
-RUN groupadd -g 999 python && \
-    useradd -r -u 999 -g python python && \
-    chown python:python ${PYTHON_APP_PATH}
-WORKDIR ${PYTHON_APP_PATH}
+RUN groupadd -g 987 python && \
+    useradd -u 1000 -g python worker
+WORKDIR /Aurora-Labs-Ex/python-app
 
-COPY --chown=python:python --from=build ${PYTHON_APP_PATH}/venv ./venv
-COPY --chown=python:python . .
+COPY --chown=worker:python . .
 USER 999
 
-ENV PATH="${PYTHON_APP_PATH}/venv/bin:$PATH"
+ENV PATH="worker/Aurora-Labs-Ex/python-app/bin:$PATH"
 CMD [ "py", "aurora-labs.py" ] 
