@@ -1,7 +1,0 @@
-# TODO: WRITE ONLY WHAT WE NEED AND THE VERSION OF EACH PACKAGE
-
-apt-transport-https == ?.?.?
-ca-certificates > ?.?.?
-curl >= ?.?.?
-gnupg-agent <= ?.?.?
-software-properties-common < ?.?.?

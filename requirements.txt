@@ -1,0 +1,5 @@
+# TODO: WRITE ONLY WHAT WE NEED AND THE VERSION OF EACH PACKAGE
+
+groupadd
+useradd
+chown
