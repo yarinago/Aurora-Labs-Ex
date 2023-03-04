@@ -12,7 +12,7 @@ services:
     networks:
       jenkins-net:
         aliases: 
-          - jenkins-net
+          - Aurora-Labs-Ex
     volumes: 
      - jenkins-data:/var/jenkins_home
      - /var/run/docker.sock:/var/run/docker.sock
@@ -21,7 +21,7 @@ services:
   #agent:
   #  image: jenkins/ssh-agent:jdk11
   #  privileged: true
-  #  user: "{AGENT_ADMIN_ID}"
+  #  user: "${{ secrets.AGENT_ADMIN_ID }}"
   #  container_name: agent
   #  expose:
   #    - 22
@@ -32,4 +32,4 @@ volumes:
   jenkins-data:
 
 networks:
-  jenkins-net:
+  Aurora-Labs-Ex:
