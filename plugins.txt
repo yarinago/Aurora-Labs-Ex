@@ -20,5 +20,4 @@ timestamper:latest
 workflow-aggregator:latest
 ws-cleanup:latest
 ghprb:latest
-job-dsl:latest
 ssh-agent:latest
