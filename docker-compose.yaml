@@ -10,14 +10,13 @@ services:
       - "8080:8080"
       - "50000:50000"
     networks:
-      jenkins-net:
+      Aurora-Labs-Ex-net:
         aliases: 
-          - Aurora-Labs-Ex
+          - Aurora-Labs-Ex-net
     volumes: 
      - jenkins-data:/var/jenkins_home
      - /var/run/docker.sock:/var/run/docker.sock
-    env_file:
-      - .env
+
   #agent:
   #  image: jenkins/ssh-agent:jdk11
   #  privileged: true
@@ -25,11 +24,9 @@ services:
   #  container_name: agent
   #  expose:
   #    - 22
-  #  env_file:
-  #    - .env
      
 volumes: 
   jenkins-data:
 
 networks:
-  Aurora-Labs-Ex:
+  Aurora-Labs-Ex-net:
