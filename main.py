@@ -1,3 +1,2 @@
-# This program prints "Devops is great"
-
-print('Devops is great')
+# This program prints "Aurora Labs is great"
+print('Aurora Labs is great')

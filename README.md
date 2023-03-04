@@ -4,7 +4,7 @@
 
 # Project Title
 
-A brief description of what this project does and who it's for
+TODO put what the code about.
 
 
 ## Prerequisites
@@ -16,7 +16,6 @@ A brief description of what this project does and who it's for
     `sudo docker network create jenkins-net`
     * In order to run the `sudo` command you will need root previlige on the machine
 3. Some of the `.env` file variables does not have value, change the value of these variables:
-    * `SERVER_IP` - your linux server ip
     * `GIT_HUB_PRIVATE_KEY` - github personal access token [(Guide)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 4. Hardware Requirement:
 
