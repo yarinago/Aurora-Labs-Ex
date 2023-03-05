@@ -10,11 +10,6 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Upgrade and Install') {
-            steps {
-                sh 'pip install --upgrade pip'
-            }
-        }
         stage('Compile') {
             steps {
                 sh 'python ./main.py .'

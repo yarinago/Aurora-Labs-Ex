@@ -3,12 +3,12 @@
       local:
         allowsSignup: false
         users:
-          - id: admin
-            password: admin
+          - id: ${{ secrets.JENKINS_ADMIN_ID }}
+            password: ${{ secrets.JENKINS_ADMIN_PASSWORD }}
     authorizationStrategy:
       globalMatrix:
         permissions:
-          - Overall/Administer:admin
+          - Overall/Administer:${{ secrets.JENKINS_ADMIN_ID }}
           - Overall/Read:authenticated
     remotingSecurity:
       enabled: true
@@ -22,14 +22,6 @@
       authenticators:
       - global:
           strategy: triggeringUsersAuthorizationStrategy
-  credentials:
-    system:
-      domainCredentials:
-        - credentials:
-            - string:
-                scope: GLOBAL
-                id: "github-credentials"
-                secret: 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
   # In case we want to add an agent              
   #        - basicSSHUserPrivateKey:
   #            scope: SYSTEM
@@ -48,7 +40,7 @@
       - credentialsId: "github-credentials"
         description: "Anonymous connection"
         id: "github-credentials"
-        secret: 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
+        secret: ${{ secrets.GIT_HUB_PRIVATE_KEY }}
         serverAPIUrl: "https://api.github.com"
     gitHubConfiguration:
       apiRateLimitChecker: ThrottleForNormalize
