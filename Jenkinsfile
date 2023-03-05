@@ -1,8 +1,6 @@
 pipeline {
     agent { 
-        docker { 
-            'python:3.7-slim-buster' 
-        }
+        docker { image 'python:3.7-slim-buster' }
     }
 
     // Activate pipeline only on merge request
