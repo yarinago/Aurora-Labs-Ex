@@ -1,75 +1,75 @@
-jenkins:
-  securityRealm:
-    local:
-      allowsSignup: false
-      users:
-        - id: ${JENKINS_ADMIN_ID}
-          password: ${JENKINS_ADMIN_PASSWORD}
-  authorizationStrategy:
-    globalMatrix:
-      permissions:
-        - Overall/Administer:admin
-        - Overall/Read:authenticated
-  remotingSecurity:
-    enabled: true
-security:
-  gitHooks:
-    allowedOnAgents: false
-    allowedOnController: false
-  gitHostKeyVerificationConfiguration:
-    sshHostKeyVerificationStrategy: "knownHostsFileVerificationStrategy"
-  queueItemAuthenticator:
-    authenticators:
-    - global:
-        strategy: triggeringUsersAuthorizationStrategy
-credentials:
-  system:
-    domainCredentials:
-      - credentials:
-          - string:
-              scope: GLOBAL
-              id: "github-credentials"
-              secret: ${GIT_HUB_PRIVATE_KEY}
-# In case we want to add an agent              
-#        - basicSSHUserPrivateKey:
-#            scope: SYSTEM
-#            id: agent-private-key
-#            username: root
-#            passphrase:  ""
-#            description: "ssh private key used to connect ssh slaves"
-#            privateKeySource:
-#              directEntry: 
-#                privateKey: "${AGENT_PRIVATE_KEY}" 
-unclassified:
-  location:
-    url: http://${SERVER_IP}:8080/
-  ghprbTrigger:
-    githubAuth:
-    - credentialsId: "github-credentials"
-      description: "Anonymous connection"
-      id: "github-credentials"
-      secret: ${GIT_HUB_PRIVATE_KEY}
-      serverAPIUrl: "https://api.github.com"
-  gitHubConfiguration:
-    apiRateLimitChecker: ThrottleForNormalize
-  gitHubPluginConfig:
-    configs:
-    - credentialsId: "github-credentials"
-      manageHooks: false
-      name: "GitHub"
-    hookUrl: "http://${SERVER_IP}:8080/github-webhook/"
-  scmGit:
-    addGitTagAction: false
-    allowSecondFetch: false
-    createAccountBasedOnEmail: false
-    disableGitToolChooser: false
-    hideCredentials: false
-    showEntireCommitSummaryInChanges: false
-    useExistingAccountWithSameEmail: false
+  jenkins:
+    securityRealm:
+      local:
+        allowsSignup: false
+        users:
+          - id: admin
+            password: admin
+    authorizationStrategy:
+      globalMatrix:
+        permissions:
+          - Overall/Administer:admin
+          - Overall/Read:authenticated
+    remotingSecurity:
+      enabled: true
+  security:
+    gitHooks:
+      allowedOnAgents: false
+      allowedOnController: false
+    gitHostKeyVerificationConfiguration:
+      sshHostKeyVerificationStrategy: "knownHostsFileVerificationStrategy"
+    queueItemAuthenticator:
+      authenticators:
+      - global:
+          strategy: triggeringUsersAuthorizationStrategy
+  credentials:
+    system:
+      domainCredentials:
+        - credentials:
+            - string:
+                scope: GLOBAL
+                id: "github-credentials"
+                secret: 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
+  # In case we want to add an agent              
+  #        - basicSSHUserPrivateKey:
+  #            scope: SYSTEM
+  #            id: agent-private-key
+  #            username: root
+  #            passphrase:  ""
+  #            description: "ssh private key used to connect ssh slaves"
+  #            privateKeySource:
+  #              directEntry: 
+  #                privateKey: "${AGENT_PRIVATE_KEY}" 
+  unclassified:
+    location:
+      url: http://localhost:8080/
+    ghprbTrigger:
+      githubAuth:
+      - credentialsId: "github-credentials"
+        description: "Anonymous connection"
+        id: "github-credentials"
+        secret: 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
+        serverAPIUrl: "https://api.github.com"
+    gitHubConfiguration:
+      apiRateLimitChecker: ThrottleForNormalize
+    gitHubPluginConfig:
+      configs:
+      - credentialsId: "github-credentials"
+        manageHooks: false
+        name: "GitHub"
+      hookUrl: "http://localhost:8080/github-webhook/"
+    scmGit:
+      addGitTagAction: false
+      allowSecondFetch: false
+      createAccountBasedOnEmail: false
+      disableGitToolChooser: false
+      hideCredentials: false
+      showEntireCommitSummaryInChanges: false
+      useExistingAccountWithSameEmail: false
 
-# One option that I tried to initiate a python jobon any merge request however the jenkins throw an eror on that
-#jobs:
-#  - name: aurora-labs-ex
-#    pipeline:
-#      scriptPath: Jenkinsfile
-#      definition: pipeline
+  # One option that I tried to initiate a python jobon any merge request however the jenkins throw an eror on that
+  #jobs:
+  #  - name: aurora-labs-ex
+  #    pipeline:
+  #      scriptPath: Jenkinsfile
+  #      definition: pipeline
