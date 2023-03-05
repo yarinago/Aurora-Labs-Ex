@@ -21,9 +21,6 @@ jobs:
 
       - name: Start ngrok
         run: ./ngrok http 8080
-
-      - name: Print ngrok public URL
-        run: echo "ngrok public URL: ${{ steps.ngrok.outputs.public_url }}"
         
       - name: Run Python script on Jenkins
         run: python3 jenkins_job.py ${{ steps.ngrok.outputs.public_url }}
