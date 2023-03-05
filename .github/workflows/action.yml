@@ -1,16 +1,29 @@
-name: Build and Test
+name: Jenkins with ngrok
 
-on:
-  push:
-    branches: [ main ]
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Build and run container
-      run: |
-        docker-compose up -d
+      - name: Install ngrok
+        run: |
+          wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+          unzip ngrok-stable-linux-amd64.zip
+
+      - name: Start Jenkins
+        run: |
+          java -jar jenkins.war &
+
+      - name: Start ngrok
+        run: ./ngrok http 8080
+
+      - name: Print ngrok public URL
+        run: echo "ngrok public URL: ${{ steps.ngrok.outputs.public_url }}"
+        
+      - name: Run Python script on Jenkins
+        run: python3 jenkins_job.py ${{ steps.ngrok.outputs.public_url }}
