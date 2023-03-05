@@ -1,6 +1,6 @@
 # Project Title
 
-TODO put what the code about.
+provide us a running Jenkins server, that will initiate a python job on any merge request
 
 
 ## Prerequisites
