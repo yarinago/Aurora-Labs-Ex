@@ -1,7 +1,3 @@
-1. לא יעיל
-2. לא מאובטח מספיק
-3. לא ענה על כל הסעיפים
-
 # Project Title
 
 TODO put what the code about.
@@ -10,14 +6,7 @@ TODO put what the code about.
 ## Prerequisites
 
 1. The server need to have **_docker_** and **_docker-compose_** command (usually the docker-compose is installed with the docker installation)
-2. To deploy this project first we need to create a docker network.
-    Run this command:
-
-    `sudo docker network create jenkins-net`
-    * In order to run the `sudo` command you will need root previlige on the machine
-3. Some of the `.env` file variables does not have value, change the value of these variables:
-    * `GIT_HUB_PRIVATE_KEY` - github personal access token [(Guide)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
-4. Hardware Requirement:
+2. Hardware Requirement:
 
     | Minimum Requirement	 | Recommended Requirement           
     | -------------          | -------------
@@ -28,7 +17,8 @@ TODO put what the code about.
 
 Run this command:
 
-**`docker-compose -f ~/Aurora-Labs-Ex/docker-compose.yaml up`**
+**`docker-compose up -d $(echo "JENKINS_ADMIN_USERNAME=admin"; echo "JENKINS_ADMIN_PASSWORD=admin"; echo "AGENT_PRIVATE_KEY=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" | xargs)
+`**
 
 * To end the deployment run: 
     * `docker-compose down`
