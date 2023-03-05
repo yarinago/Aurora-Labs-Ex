@@ -1,6 +1,9 @@
-name: Jenkins with ngrok
+name: Docker Compose Up
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -10,17 +13,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install Docker
+        uses: docker/setup-docker@v1
+
+      - name: Build and run containers
+        run: docker-compose up -d
+
       - name: Install ngrok
         run: |
           wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
           unzip ngrok-stable-linux-amd64.zip
 
-      - name: Start Jenkins
-        run: |
-          java -jar jenkins.war &
-
       - name: Start ngrok
         run: ./ngrok http 8080
-        
-      - name: Run Python script on Jenkins
-        run: python3 jenkins_job.py ${{ steps.ngrok.outputs.public_url }}
+
+      - name: Print ngrok public URL
+        run: echo "ngrok public URL:${{ steps.ngrok.outputs.public_url }}"
