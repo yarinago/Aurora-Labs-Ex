@@ -9,10 +9,10 @@ services:
     ports: 
       - "8080:8080"
       - "50000:50000"
-    networks:
-      Aurora-Labs-Ex-net:
-        aliases: 
-          - Aurora-Labs-Ex-net
+    #networks:
+    #  Aurora-Labs-Ex-net:
+    #    aliases: 
+    #      - Aurora-Labs-Ex-net
     volumes: 
      - jenkins-data:/var/jenkins_home
      - /var/run/docker.sock:/var/run/docker.sock
@@ -28,5 +28,5 @@ services:
 volumes: 
   jenkins-data:
 
-networks:
-  Aurora-Labs-Ex-net:
+#networks:
+#  Aurora-Labs-Ex-net:

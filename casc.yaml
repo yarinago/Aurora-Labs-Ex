@@ -3,12 +3,12 @@ jenkins:
     local:
       allowsSignup: false
       users:
-        - id: ${{ secrets.JENKINS_ADMIN_ID }}
-          password: ${{ secrets.JENKINS_ADMIN_PASSWORD }}
+        - id: admin
+          password: admin
   authorizationStrategy:
     globalMatrix:
       permissions:
-        - Overall/Administer:${{ secrets.JENKINS_ADMIN_ID }}
+        - Overall/Administer:admin
         - Overall/Read:authenticated
   remotingSecurity:
     enabled: true
@@ -29,26 +29,18 @@ credentials:
           - string:
               scope: GLOBAL
               id: "github-credentials"
-              secret: ${{{ secrets.GIT_HUB_PRIVATE_KEY }}}
+              secret: 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
 unclassified:
   location:
-    url: http://${SERVER_IP}:8080/
-  ghprbTrigger:
-    auths:
-    - githubAuth:
-        credentialsId: "github-credentials"
-        description: "Anonymous connection"
-        id: "github-credentials"
-        secret: ${{{ secrets.GIT_HUB_PRIVATE_KEY }}}
-        serverAPIUrl: "https://api.github.com"
-  gitHubConfiguration:
-    apiRateLimitChecker: ThrottleForNormalize
+    url: http://localhost:8080/
   gitHubPluginConfig:
     configs:
     - credentialsId: "github-credentials"
       manageHooks: false
       name: "GitHub"
-    hookUrl: "http://${SERVER_IP}:8080/github-webhook/"
+    hookUrl: "http://localhost:8080/github-webhook/"
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
   scmGit:
     addGitTagAction: false
     allowSecondFetch: false
@@ -57,28 +49,35 @@ unclassified:
     hideCredentials: false
     showEntireCommitSummaryInChanges: false
     useExistingAccountWithSameEmail: false
-jobs:
-  - githubPullRequest:
-      plugin: github
-      spec: |
-        pipelineJob('aurora-labs-ex-merge-requests') {
-          definition {
-            cpsScm {
-              scm {
-                git {
-                  remote {
-                    url('https://github.com/yarinago/*.git')
-                    credentials('github-credentials')
-                  }
-                  branches('*')
-                  extensions {
-                    gitSCMExtension {
-                      relativeTargetDir('Aurora-Labs-Ex')
-                    }
-                  }
-                }
-              }
-              scriptPath('Jenkinsfile')
-            }
-          }
-        }
+  ghprbTrigger:
+    githubAuth:
+    - credentialsId: "github-credentials"
+      description: "Anonymous connection"
+      id: "github-credentials"
+      secret: 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
+      serverAPIUrl: "https://api.github.com"
+#jobs:
+#  - githubPullRequest:
+#      plugin: github
+#      spec: |
+#        pipelineJob('aurora-labs-ex-merge-requests') {
+#          definition {
+#            cpsScm {
+#              scm {
+#                git {
+#                  remote {
+#                    url('https://github.com/yarinago/*.git')
+#                    credentials('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')
+#                  }
+#                  branches('*')
+#                  extensions {
+#                    gitSCMExtension {
+#                      relativeTargetDir('Aurora-Labs-Ex')
+#                    }
+#                  }
+#                }
+#              }
+#              scriptPath('Jenkinsfile')
+#            }
+#          }
+#        }
