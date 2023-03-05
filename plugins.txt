@@ -19,5 +19,6 @@ ssh-slaves:latest
 timestamper:latest
 workflow-aggregator:latest
 ws-cleanup:latest
+job-dsl:1.74
 ghprb:latest
 ssh-agent:latest

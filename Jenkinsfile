@@ -3,21 +3,16 @@ pipeline {
         docker { image 'python:3.7-slim-buster' }
     }
 
-    // Activate pipeline only on merge request
-    on {
-        pull_request {
-            types 'opened', 'reopened', 'synchronize'
-        }
-    }
-    options {
-        skipDefaultCheckout()
-    }
 
     stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
         stage('Upgrade and Install') {
             steps {
                 sh 'pip install --upgrade pip'
-                sh 'pip install -r requirements.txt'
             }
         }
         stage('Compile') {
