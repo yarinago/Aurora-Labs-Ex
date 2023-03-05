@@ -1,6 +1,6 @@
-# Project Title
+# Aurora Labs EX
 
-provide us a running Jenkins server, that will initiate a python job on any merge request
+This project provide us a running Jenkins server, that will initiate a python job on any merge request
 
 
 ## Prerequisites
