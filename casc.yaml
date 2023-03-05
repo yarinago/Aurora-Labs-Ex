@@ -66,10 +66,30 @@
       hideCredentials: false
       showEntireCommitSummaryInChanges: false
       useExistingAccountWithSameEmail: false
-
-  # One option that I tried to initiate a python jobon any merge request however the jenkins throw an eror on that
-  #jobs:
-  #  - name: aurora-labs-ex
-  #    pipeline:
-  #      scriptPath: Jenkinsfile
-  #      definition: pipeline
+# I AM KEEPING THIS IN COMMENT BECAUSE I READ ONLINE THAT THIS IS THE SOLUTION.
+# I COULD NOT MAKE IT WORK
+#  jobs:
+#    - githubPullRequest:
+#        plugin: github
+#        spec: |
+#          pipelineJob('aurora-labs-ex-merge-requests') {
+#            definition {
+#              cpsScm {
+#                scm {
+#                  git {
+#                    remote {
+#                      url('https://github.com/yarinago/*.git')
+#                      credentials('github-credentials')
+#                    }
+#                    branches('*')
+#                    extensions {
+#                      gitSCMExtension {
+#                        relativeTargetDir('Aurora-Labs-Ex')
+#                      }
+#                    }
+#                  }
+#                }
+#                scriptPath('Jenkinsfile')
+#              }
+#            }
+#          }
