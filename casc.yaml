@@ -3,12 +3,12 @@ jenkins:
     local:
       allowsSignup: false
       users:
-        - id: admin
-          password: admin
+        - id: ${{ secrets.JENKINS_ADMIN_ID }}
+          password: ${{ secrets.JENKINS_ADMIN_PASSWORD }}
   authorizationStrategy:
     globalMatrix:
       permissions:
-        - Overall/Administer:admin
+        - Overall/Administer:${{ secrets.JENKINS_ADMIN_ID }}
         - Overall/Read:authenticated
   remotingSecurity:
     enabled: true
@@ -29,33 +29,24 @@ credentials:
           - string:
               scope: GLOBAL
               id: "github-credentials"
-              secret: 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
+              secret: ${{{ secrets.GIT_HUB_PRIVATE_KEY }}}
 unclassified:
   location:
-    url: http://localhost:8080/
-  gitHubPluginConfig:
-    configs:
-    - credentialsId: "github-credentials"
-      manageHooks: false
-      name: "GitHub"
-    hookUrl: "http://localhost:8080/github-webhook/"
+    url: http://${SERVER_IP}:8080/
+  ghprbTrigger:
+    auths:
+    - githubAuth:
+        credentialsId: "github-credentials"
+        description: "Anonymous connection"
+        id: "github-credentials"
+        secret: ${{{ secrets.GIT_HUB_PRIVATE_KEY }}}
+        serverAPIUrl: "https://api.github.com"
   gitHubConfiguration:
     apiRateLimitChecker: ThrottleForNormalize
-  scmGit:
-    addGitTagAction: false
-    allowSecondFetch: false
-    createAccountBasedOnEmail: false
-    disableGitToolChooser: false
+  gitHubPluginConfig:
     hideCredentials: false
     showEntireCommitSummaryInChanges: false
     useExistingAccountWithSameEmail: false
-  ghprbTrigger:
-    githubAuth:
-    - credentialsId: "github-credentials"
-      description: "Anonymous connection"
-      id: "github-credentials"
-      secret: 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
-      serverAPIUrl: "https://api.github.com"
 #jobs:
 #  - githubPullRequest:
 #      plugin: github
@@ -67,7 +58,7 @@ unclassified:
 #                git {
 #                  remote {
 #                    url('https://github.com/yarinago/*.git')
-#                    credentials('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')
+#                    credentials('github-credentials')
 #                  }
 #                  branches('*')
 #                  extensions {
